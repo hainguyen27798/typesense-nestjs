@@ -19,6 +19,13 @@
         "url": "https://github.com/hainguyen27798/typesense-nextjs/issues"
     },
     "homepage": "https://github.com/hainguyen27798/typesense-nextjs#readme",
+    "keywords": [
+        "typesense",
+        "api",
+        "wrapper",
+        "nestjs",
+        "search"
+    ],
     "peerDependencies": {
         "@nestjs/common": "^10.3.8",
         "lodash": "^4.17.21",
