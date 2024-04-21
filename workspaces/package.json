@@ -32,9 +32,7 @@
         "lodash": "^4.17.21",
         "mongoose": "^8.3.2",
         "rxjs": "^7.8.1",
-        "typesense": "^1.8.2"
-    },
-    "devDependencies": {
+        "typesense": "^1.8.2",
         "@types/node": "^20.12.7",
         "rimraf": "^5.0.5",
         "typescript": "^5.4.5"
