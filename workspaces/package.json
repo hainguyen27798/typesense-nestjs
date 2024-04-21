@@ -4,7 +4,9 @@
     "description": "Typesence module for NestJS and sync data from monoDB",
     "main": "dist/index",
     "types": "dist/index",
-    "scripts": {},
+    "scripts": {
+        "build": "rimraf dist && tsc -p tsconfig.lib.json"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/hainguyen27798/typesense-nextjs.git"
@@ -25,7 +27,7 @@
     "publishConfig": {
         "registry": "https://npm.pkg.github.com"
     },
-    "dependencies": {
+    "peerDependencies": {
         "@nestjs/common": "^10.3.8",
         "lodash": "^4.17.21",
         "mongoose": "^8.3.2",
