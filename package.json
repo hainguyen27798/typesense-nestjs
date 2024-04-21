@@ -26,6 +26,9 @@
         "nestjs",
         "search"
     ],
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com"
+    },
     "peerDependencies": {
         "@nestjs/common": "^10.3.8",
         "lodash": "^4.17.21",
