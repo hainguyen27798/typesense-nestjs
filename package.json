@@ -7,14 +7,14 @@
     "scripts": {},
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/hainguyen27798/typesense-nextjs.git"
+        "url": "git+https://github.com/hainguyen27798/typesense-nestjs.git"
     },
     "author": "Harry Nguyen",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/hainguyen27798/typesense-nextjs/issues"
+        "url": "https://github.com/hainguyen27798/typesense-nestjs/issues"
     },
-    "homepage": "https://github.com/hainguyen27798/typesense-nextjs#readme",
+    "homepage": "https://github.com/hainguyen27798/typesense-nestjs#readme",
     "keywords": [
         "typesense",
         "api",
@@ -31,10 +31,5 @@
         "mongoose": "^8.3.2",
         "rxjs": "^7.8.1",
         "typesense": "^1.8.2"
-    },
-    "devDependencies": {
-        "@types/node": "^20.12.7",
-        "rimraf": "^5.0.5",
-        "typescript": "^5.4.5"
     }
 }

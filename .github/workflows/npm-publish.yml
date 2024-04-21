@@ -15,7 +15,7 @@ jobs:
             - uses: actions/setup-node@v3
               with:
                   node-version: 20
-            - run: yarn --ignore-scripts && cd ./workspaces && yarn build
+            - run: yarn --ignore-scripts && cd ./workspaces && yarn --ignore-scripts && yarn build
 
     publish-npm:
         needs: build
@@ -26,6 +26,6 @@ jobs:
               with:
                   node-version: 20
                   registry-url: https://registry.npmjs.org/
-            - run: yarn --ignore-scripts && cd ./workspaces && yarn build && npm publish
+            - run: yarn --ignore-scripts && cd ./workspaces && yarn build && yarn --ignore-scripts && yarn build && npm publish
               env:
                   NODE_AUTH_TOKEN: ${{secrets.npm_token}}
