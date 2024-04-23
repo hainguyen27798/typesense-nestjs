@@ -1,6 +1,6 @@
 {
     "name": "typesense-nestjs",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "Typesence module for NestJS and sync data from monoDB",
     "main": "dist/index",
     "types": "dist/index",
@@ -25,7 +25,7 @@
         "search"
     ],
     "publishConfig": {
-        "registry": "https://npm.pkg.github.com"
+        "registry": "https://registry.npmjs.org"
     },
     "peerDependencies": {
         "@nestjs/common": "^10.3.8",

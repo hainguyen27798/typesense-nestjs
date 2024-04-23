@@ -22,9 +22,11 @@
         "nestjs",
         "search"
     ],
+    "private": true,
     "publishConfig": {
         "registry": "https://npm.pkg.github.com"
     },
+    "workspace": "workspaces",
     "dependencies": {
         "@nestjs/common": "^10.3.8",
         "lodash": "^4.17.21",
