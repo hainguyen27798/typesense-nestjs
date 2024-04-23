@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://raw.githubusercontent.com/hainguyen27798/typesense-nestjs/main/images/overview.png" alt="typesense-nestjs"><br/>
+    <img src="https://raw.githubusercontent.com/hainguyen27798/typesense-nestjs/main/images/overview.png" width="300px" alt="typesense-nestjs"><br/>
     <h3>Typesense module for NestJS</h3>
 </div>
 
@@ -19,7 +19,7 @@ Read more about Typesense at [here](https://typesense.org/docs/overview/what-is-
 
 | Name                                 | Supported versions |
 |--------------------------------------|--------------------|
-| Register typesense global            | V1.0.0             |
-| Register schema for specified module | V1.0.0             |
-| Auto migrate schemas                 | V1.0.0             |
-| Auto sync data from MongoDB          | V1.0.0             |
+| Register typesense global            | All versions       |
+| Register schema for specified module | All versions       |
+| Auto migrate schemas                 | All versions       |
+| Auto sync data from MongoDB          | All versions       |

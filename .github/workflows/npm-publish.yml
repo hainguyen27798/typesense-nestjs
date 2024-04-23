@@ -29,4 +29,4 @@ jobs:
             - run: yarn --ignore-scripts && cd ./workspaces && yarn --ignore-scripts && yarn build
             - run: npm publish
               env:
-                  NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+                  NPM_CONFIG_TOKEN: ${{secrets.npm_token}}
