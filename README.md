@@ -43,8 +43,8 @@ yarn add typesense-nestjs
 **Register and config Typesense at ___app.module.ts___**
 
 ```ts
-import { TypesenseNestModule } from '@app/typesense-nestjs-lib';
 import { Module } from '@nestjs/common';
+import { TypesenseNestModule } from 'typesense-nestjs';
 
 @Module({
     imports: [
