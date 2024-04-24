@@ -1,40 +1,12 @@
-<div align="center">
-    <img src="images/overview.png" width="300px" alt="typesense-nestjs"><br/>
-    <h3>Typesense module for NestJS</h3>
-</div>
-
-# Overview
-
-### About Typesense
-
-Typesense is an open-source, typo-tolerant search engine optimized for instant (typically sub-50ms) search-as-you-type experiences and developer productivity.
-
-If you've heard about ElasticSearch or Algolia, a good way to think about Typesense is that it is:
-- An open source alternative to Algolia, with some key quirks solved and
-- An easier-to-use batteries-included alternative to ElasticSearch
-
-Read more about Typesense at [here](https://typesense.org/docs/overview/what-is-typesense.html)
-
-### Main Feature
-
-| Name                                 | Supported versions |
-|--------------------------------------|--------------------|
-| Register typesense global            | V1.0.0             |
-| Register schema for specified module | V1.0.0             |
-| Auto migrate schemas                 | V1.0.0             |
-| Auto sync data from MongoDB          | V1.0.0             |
-
-# Installation
-
-### Setup Typesence and MongoDB
+# Installation Typesence and MongoDB
 
 - **For cloud or self-hosted**:
   - **Install Typesense**: Please follow [This guide](https://typesense.org/docs/guide/install-typesense.html).
   - **Install MongoDB**: Please follow [This guide](https://www.mongodb.com/docs/).
 
-  - **Setup replica set for MongoDB**:
-    - Option 1: [Deploy replica set on MongoDB cloud](https://www.mongodb.com/docs/cloud-manager/tutorial/deploy-replica-set/) (If you use MongoDB Cloud).
-    - Option 2: [Setup replica set on MongoDB self-hosted](https://www.mongodb.com/docs/manual/replication/) (If you use MongoDB Self-hosted).
+- **Setup replica set for MongoDB**:
+  - Option 1: [Deploy replica set on MongoDB cloud](https://www.mongodb.com/docs/cloud-manager/tutorial/deploy-replica-set/) (If you use MongoDB Cloud).
+  - Option 2: [Setup replica set on MongoDB self-hosted](https://www.mongodb.com/docs/manual/replication/) (If you use MongoDB Self-hosted).
 
 - **For docker compose**: You could follow the steps below to quick installation.
 

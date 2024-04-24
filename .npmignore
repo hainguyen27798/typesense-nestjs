@@ -9,7 +9,7 @@ src
 .eslintrc.js
 .gitignore
 .prettierrc
-GUIDE.md
+INSTALL.md
 nest-cli.json
 tsconfig.build.json
 tsconfig.json
