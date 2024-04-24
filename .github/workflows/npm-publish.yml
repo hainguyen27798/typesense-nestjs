@@ -5,7 +5,7 @@ name: Typesense Nestjs Package
 
 on:
     release:
-        types: [created]
+        types: [published]
 
 jobs:
     build:
@@ -15,7 +15,7 @@ jobs:
             - uses: actions/setup-node@v3
               with:
                   node-version: 20
-            - run: yarn --ignore-scripts && cd ./workspaces && yarn --ignore-scripts && yarn build
+            - run: yarn --ignore-scripts && yarn build
 
     publish-npm:
         needs: build
@@ -26,7 +26,7 @@ jobs:
               with:
                   node-version: 20
                   registry-url: "https://registry.npmjs.org"
-            - run: yarn --ignore-scripts && cd ./workspaces && yarn --ignore-scripts && yarn build
+            - run: yarn --ignore-scripts && yarn build
             - run: npm publish
               env:
                   NPM_CONFIG_TOKEN: ${{secrets.npm_token}}
