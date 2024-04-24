@@ -1,6 +1,6 @@
 {
     "name": "typesense-nestjs",
-    "version": "1.1.2",
+    "version": "1.1.3",
     "description": "Typesence module for NestJS and sync data from monoDB",
     "main": "build/index",
     "types": "build/index",
