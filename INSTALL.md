@@ -39,7 +39,9 @@
 
 2. **Docker compose config file**:
 
-   Define your network:
+   Create a new `docker-conpose.yml` at your root project. You can use full config defined at [docker-conpose.yml](./docker-conpose.yml) file.
+
+   __Define your network:__
 
    ```yaml
    # docker-compose.yml
@@ -50,7 +52,24 @@
    ...
    ```
 
-   Define mongo service:
+   __Define Dockerfile for MongoDB__:
+
+   You should create a new `Dockerfile` file at `.docker/mongo/` directory.
+
+   ```dockerfile
+   # .docker/mongo/Dockerfile
+   
+   FROM mongo:latest
+   RUN openssl rand -base64 756 > /etc/mongo-keyfile
+   RUN chmod 400 /etc/mongo-keyfile
+   RUN chown mongodb:mongodb /etc/mongo-keyfile
+   ```
+
+   The configurations above will create a new key to prepare setup __Replica Set__ for MongoDB.
+
+   __A MongoDB replica set__ is necessary for our system because it allows us to listen to data stream changes from MongoDB. This capability is crucial for updating new data to Typesense in real-time.
+
+   __Define mongo service__:
 
    ```yaml
    # docker-compose.yml
@@ -81,13 +100,25 @@
               start_period: 15s
               retries: 10
           networks:
-              - typesence_mongo_network
+              - your_network_name
           volumes:
-              - typesence_mongo:/data/db
+              - mongo-data:/data/db
    ...
    ```
 
-   Define Typesense service:
+   ___Notice:___ The scripts bellow to check and register replica set members to MongoDB.
+
+   ```js
+   try { rs.status() }
+   catch (err) {
+      rs.initiate({
+          _id:'rs0',
+          members:[{ _id:0, host:'127.0.0.1:27017' }]
+      })
+   }
+   ```
+
+   __Define Typesense service:__
 
    ```yaml
    # docker-compose.yml
@@ -101,10 +132,33 @@
               - typesense-data:/data
           command: '--data-dir /data --api-key=${TYPESENSE_API_KEY} --enable-cors'
           networks:
-              - typesence_mongo_network
+              - your_network_name
    ...
    ```
-  volumes:
-      typesense-data:
-      typesence_mongo:
-  ```
+
+   __Register volumns:__
+
+   ```yaml
+   # docker-compose.yml
+   ...
+       volumes:
+           mongo-data:
+           typesense-data:
+   ...
+   ```
+
+3. **Run docker compose**:
+
+   - Start your docker.
+  
+   - Run docker compose:
+
+     ```sh
+     docker compose --env-file .env up -d
+     ```
+  
+   - Check your services are running or not:
+  
+     ```sh
+     docker ps
+     ```
