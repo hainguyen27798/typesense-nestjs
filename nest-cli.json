@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
+  "compilerOptions": {
+    "deleteOutDir": true
+  },
+  "projects": {
+    "typesense-nestjs-lib": {
+      "type": "library",
+      "root": "libs/typesense-nestjs-lib",
+      "entryFile": "index",
+      "sourceRoot": "libs/typesense-nestjs-lib/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/typesense-nestjs-lib/tsconfig.lib.json"
+      }
+    }
+  }
+}
