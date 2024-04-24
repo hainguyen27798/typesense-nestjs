@@ -1,0 +1,45 @@
+{
+    "name": "typesense-nestjs",
+    "version": "1.0.4",
+    "description": "Typesence module for NestJS and sync data from monoDB",
+    "main": "dist/index",
+    "types": "dist/index",
+    "scripts": {
+        "build": "rimraf dist && tsc -p tsconfig.lib.json"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/hainguyen27798/typesense-nestjs.git"
+    },
+    "author": "Harry Nguyen",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/hainguyen27798/typesense-nestjs/issues"
+    },
+    "homepage": "https://github.com/hainguyen27798/typesense-nestjs#readme",
+    "keywords": [
+        "typesense",
+        "api",
+        "wrapper",
+        "nestjs",
+        "search"
+    ],
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org"
+    },
+    "peerDependencies": {
+        "@nestjs/common": "^10.3.8",
+        "lodash": "^4.17.21",
+        "mongoose": "^8.3.2",
+        "rxjs": "^7.8.1",
+        "typesense": "^1.8.2",
+        "@types/node": "^20.12.7",
+        "rimraf": "^5.0.5",
+        "typescript": "^5.4.5"
+    },
+    "devDependencies": {
+        "@types/node": "^20.12.7",
+        "rimraf": "^5.0.5",
+        "typescript": "^5.4.5"
+    }
+}
