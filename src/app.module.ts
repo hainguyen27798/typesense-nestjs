@@ -1,6 +1,9 @@
 import { TypesenseNestModule } from '@app/typesense-nestjs-lib';
 import { Module } from '@nestjs/common';
 
+import { AppService } from './app.service';
+import { Product, ProductSchema } from './schemas/product.schema';
+
 @Module({
     imports: [
         TypesenseNestModule.forRootSync({
@@ -18,6 +21,11 @@ import { Module } from '@nestjs/common';
                 timeoutSeconds: 4,
             }),
         }),
+        TypesenseNestModule.forFeature({
+            name: Product.name,
+            schema: ProductSchema,
+        }),
     ],
+    providers: [AppService],
 })
 export class AppModule {}

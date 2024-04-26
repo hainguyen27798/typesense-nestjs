@@ -5,6 +5,7 @@
     "main": "build/index",
     "types": "build/index",
     "scripts": {
+        "start:local": "nest start typesense-nestjs --watch",
         "build": "nest build typesense-nestjs-lib"
     },
     "repository": {
@@ -46,6 +47,7 @@
         "@swc/core": "^1.4.17",
         "@types/express": "^4.17.17",
         "@types/jest": "^29.5.2",
+        "@types/lodash": "^4.17.0",
         "@types/node": "^20.3.1",
         "@types/supertest": "^6.0.0",
         "@typescript-eslint/eslint-plugin": "^6.0.0",
@@ -92,7 +94,7 @@
             "<rootDir>/libs/"
         ],
         "moduleNameMapper": {
-            "^@app/typesense-nestjs-lib(|/.*)$": "<rootDir>/build/$1"
+            "^@app/typesense-nestjs-lib(|/.*)$": "<rootDir>/libs/typesense-nestjs-lib/$1"
         }
     }
 }

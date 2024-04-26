@@ -14,6 +14,8 @@ export const TypesenseCoreSyncProvider = (options: TypesenseSyncOptions): Provid
     {
         inject: [TYPESENSE_NEST_OPTIONS],
         provide: TYPESENSE_NEST_CLIENT,
-        useFactory: (options: ConfigurationOptions) => new TypesenseCoreSync(options),
+        useFactory: async (options: ConfigurationOptions) => {
+            return await TypesenseCoreSync.init(options);
+        },
     },
 ];

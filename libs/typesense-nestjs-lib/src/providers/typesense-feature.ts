@@ -1,5 +1,4 @@
 import { Logger } from '@nestjs/common';
-import { Document } from 'bson';
 import { filter, find, keys } from 'lodash';
 import { ChangeStreamDocument } from 'mongodb';
 import { Client } from 'typesense';
@@ -8,15 +7,42 @@ import { CollectionDropFieldSchema } from 'typesense/src/Typesense/Collection';
 
 import { TypesenseModelDefinition, TypesenseSearchModel } from '../interfaces';
 
-export class TypesenseFeature<TSchema extends Document = Document> implements TypesenseSearchModel<TSchema> {
+class TypesenseSearch<TSchema = any> implements TypesenseSearchModel<TSchema> {
     private _Collection: Collection<TSchema>;
 
-    constructor(client: Client, model: TypesenseModelDefinition) {
-        this.register(client, model).then();
+    constructor(collection: Collection<TSchema>) {
+        this._Collection = collection;
     }
 
-    private async register(client: Client, model: TypesenseModelDefinition) {
-        const collection = client.collections<TSchema>(model.schema.name);
+    async syncData(record: ChangeStreamDocument<TSchema>) {
+        switch (record.operationType) {
+            case 'delete':
+                await this._Collection.documents(record.documentKey._id.toString()).delete();
+                break;
+            case 'update':
+                await this._Collection
+                    .documents(record.documentKey._id.toString())
+                    .update(record.updateDescription.updatedFields);
+                break;
+            case 'insert':
+                await this._Collection
+                    .documents()
+                    .upsert({
+                        id: record.documentKey._id,
+                        ...record.fullDocument,
+                    })
+                    .catch((e) => Logger.error(`${record.documentKey._id}: ${e}`));
+        }
+    }
+
+    get documents() {
+        return this._Collection.documents();
+    }
+}
+
+export class TypesenseFeature {
+    static async register<TSchema = any>(client: Client, model: TypesenseModelDefinition) {
+        let collection = client.collections<TSchema>(model.schema.name);
 
         if (await collection.exists()) {
             const updatedFieldNames = model.schema.fields.map((fields) => fields.name);
@@ -47,31 +73,9 @@ export class TypesenseFeature<TSchema extends Document = Document> implements Ty
         } else {
             await client.collections().create(model.schema);
         }
-        this._Collection = client.collections<TSchema>(model.schema.name);
-    }
 
-    async syncData(record: ChangeStreamDocument<TSchema>) {
-        switch (record.operationType) {
-            case 'delete':
-                await this._Collection.documents(record.documentKey._id.toString()).delete();
-                break;
-            case 'update':
-                await this._Collection
-                    .documents(record.documentKey._id.toString())
-                    .update(record.updateDescription.updatedFields);
-                break;
-            case 'insert':
-                await this._Collection
-                    .documents()
-                    .upsert({
-                        id: record.documentKey._id,
-                        ...record.fullDocument,
-                    })
-                    .catch((e) => Logger.error(`${record.documentKey._id}: ${e}`));
-        }
-    }
+        collection = client.collections<TSchema>(model.schema.name);
 
-    get documents() {
-        return this._Collection.documents();
+        return new TypesenseSearch(collection);
     }
 }

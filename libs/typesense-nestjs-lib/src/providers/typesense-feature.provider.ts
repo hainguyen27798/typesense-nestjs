@@ -10,7 +10,7 @@ export function TypesenseFeatureProvider(model: TypesenseModelDefinition): Provi
         {
             provide: model.name,
             inject: [TYPESENSE_NEST_CLIENT],
-            useFactory: (client: Client) => new TypesenseFeature(client, model),
+            useFactory: async (client: Client) => await TypesenseFeature.register(client, model),
         },
     ];
 }

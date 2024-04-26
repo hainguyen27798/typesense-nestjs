@@ -1,5 +1,5 @@
+import { DynamicModule, ForwardReference, InjectionToken, OptionalFactoryDependency, Type } from '@nestjs/common';
 import { ConfigurationOptions } from 'typesense/lib/Typesense/Configuration';
-import { Type, DynamicModule, ForwardReference, OptionalFactoryDependency, InjectionToken } from '@nestjs/common';
 
 export interface TypesenseSyncOptions {
     imports?: Array<Type<any> | DynamicModule | Promise<DynamicModule> | ForwardReference>;

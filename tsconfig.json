@@ -19,8 +19,8 @@
         "noFallthroughCasesInSwitch": false,
         "esModuleInterop": true,
         "paths": {
-            "@app/typesense-nestjs-lib": ["build"],
-            "@app/typesense-nestjs-lib/*": ["build/*"]
+            "@app/typesense-nestjs-lib": ["libs/typesense-nestjs-lib/src"],
+            "@app/typesense-nestjs-lib/*": ["libs/typesense-nestjs-lib/src/*"]
         }
     }
 }

@@ -3,9 +3,9 @@ import { Client } from 'typesense';
 import { ConfigurationOptions } from 'typesense/lib/Typesense/Configuration';
 
 export class TypesenseCoreSync {
-    constructor(options: ConfigurationOptions) {
+    static async init(options: ConfigurationOptions) {
         const _TypesenseClient: Client = new Client(options);
-        return _TypesenseClient.health
+        await _TypesenseClient.health
             .retrieve()
             .then((rs) => {
                 Logger.log(`TypeSenseClient health check: ${rs.ok}`);
@@ -15,5 +15,6 @@ export class TypesenseCoreSync {
                 Logger.error(`TypeSenseClient: ${err.errors}`);
                 return null;
             });
+        return _TypesenseClient;
     }
 }
