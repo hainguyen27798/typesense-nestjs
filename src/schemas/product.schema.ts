@@ -3,9 +3,6 @@ import { Prop, TypesenseSchema, TypesenseSchemaFactory } from '@app/typesense-ne
 @TypesenseSchema({ name: 'products' })
 export class Product {
     @Prop()
-    id: string;
-
-    @Prop()
     name: string;
 
     @Prop()

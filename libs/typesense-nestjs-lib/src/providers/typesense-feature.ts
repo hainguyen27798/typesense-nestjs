@@ -71,7 +71,12 @@ export class TypesenseFeature {
                 });
             }
         } else {
-            await client.collections().create(model.schema);
+            const newSchema = model.schema;
+            newSchema.fields.unshift({
+                name: 'id',
+                type: 'string',
+            });
+            await client.collections().create(newSchema);
         }
 
         collection = client.collections<TSchema>(model.schema.name);

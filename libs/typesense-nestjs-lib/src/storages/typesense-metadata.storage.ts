@@ -13,7 +13,7 @@ export class TypesenseMetadataStorageHost {
     }
 
     addPropertyMetadata(metadata: TypesenseFieldMetadata) {
-        this.properties.unshift(metadata);
+        this.properties.push(metadata);
     }
 
     getSchemaMetadataByTarget(target: Type<unknown>): TypesenseSchemaMetadata | undefined {
