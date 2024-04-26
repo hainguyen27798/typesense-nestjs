@@ -146,26 +146,68 @@ import { ProductSearch, ProductSearchSchema } from './schemas/product-search.sch
 ```ts
 // product/product.service.ts
 
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnApplicationShutdown } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { ChangeStream, ChangeStreamDocument, Model } from 'mongoose';
 import { InjectTypesenseModel, TypesenseSearchModel } from 'typesense-nestjs';
 
 import { Product } from './product/schemas/product.schema';
 import { ProductSearch } from './product/schemas/product-search.schema';
 
 @Injectable()
-export class ProductService {
-    constructor(
-        @InjectModel(Product.name) private readonly _ProductModel: Model<Product>,
-        @InjectTypesenseModel(ProductSearch.name)
-        private readonly _ProductSearchCollection: TypesenseSearchModel<ProductSearch>,
-    ) {
-        this._ProductModel.watch().on('change', async (e) => {
-            await this._ProductSearchCollection.syncData(e);
-        });
+export class ProductService implements OnApplicationShutdown {
+  protected readonly _ModelChangeStream: ChangeStream<Product, ChangeStreamDocument<Product>>;
+
+  constructor(
+    @InjectModel(Product.name) private readonly _ProductModel: Model<Product>,
+    @InjectTypesenseModel(ProductSearch.name)
+    private readonly _ProductSearchCollection: TypesenseSearchModel<ProductSearch>,
+  ) {
+    this._ProductModel.watch().on('change', async (e) => {
+      await this._ProductSearchCollection.syncData(e);
+    });
+  }
+
+  async onApplicationShutdown() {
+    if (this._ModelChangeStream) {
+      await this._ModelChangeStream.close();
     }
+  }
 }
 ```
 
-The code above will update data
+The code snippet above is essential for monitoring changes in the MongoDB data stream and promptly updating the data in Typesense.
+
+___Notice___: Please remember to enable app shutdown hooks and close the change stream when shutting down the app.
+
+To enable shutdown hooks. Please use the code below:
+
+```ts
+// main.ts
+  ...
+  app.enableShutdownHooks();
+
+  await app.listen(3000);
+  ...
+```
+
+**How to use?**
+
+The property below was provided for us some methods such as: `seach`, `create`, `update` documents,... Please see [this guide](https://typesense.org/docs/26.0/api/search.html#search) to use it!.
+
+```ts
+this._ProductSearchCollection.documents
+```
+
+The code snippet below is simple search:
+
+```ts
+this._ProductSearchCollection.documents.search({
+    q: 'text query',
+    per_page: 10,
+    page: 1,
+    query_by: 'name,category,subCategory',
+});
+```
+
+
