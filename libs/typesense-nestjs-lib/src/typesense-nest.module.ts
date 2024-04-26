@@ -1,8 +1,6 @@
 import { DynamicModule, Module, Provider } from '@nestjs/common';
-import { Document } from 'bson';
-import { CollectionCreateSchema } from 'typesense/lib/Typesense/Collections';
 
-import { TypesenseSyncOptions } from './interfaces';
+import { TypesenseModelDefinition, TypesenseSyncOptions } from './interfaces';
 import { TypesenseFeatureProvider } from './providers';
 import { TypesenseNestCoreModule } from './typesense-nest-core.module';
 
@@ -14,8 +12,8 @@ export class TypesenseNestModule {
             imports: [TypesenseNestCoreModule.forRootSync(options)],
         };
     }
-    static forFeature<TSchema extends Document = Document>(schema: CollectionCreateSchema): DynamicModule {
-        const provider: Provider[] = TypesenseFeatureProvider<TSchema>(schema);
+    static forFeature(model: TypesenseModelDefinition): DynamicModule {
+        const provider: Provider[] = TypesenseFeatureProvider(model);
         return {
             module: TypesenseNestModule,
             providers: provider,
