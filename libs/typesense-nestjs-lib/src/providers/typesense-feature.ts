@@ -1,5 +1,5 @@
 import { Logger } from '@nestjs/common';
-import { filter, find, keys } from 'lodash';
+import { filter, find, get, keys } from 'lodash';
 import { ChangeStreamDocument } from 'mongodb';
 import { Client } from 'typesense';
 import Collection, { CollectionFieldSchema } from 'typesense/lib/Typesense/Collection';
@@ -15,23 +15,25 @@ class TypesenseSearch<TSchema = any> implements TypesenseSearchModel<TSchema> {
     }
 
     async syncData(record: ChangeStreamDocument<TSchema>) {
-        switch (record.operationType) {
-            case 'delete':
-                await this._Collection.documents(record.documentKey._id.toString()).delete();
-                break;
-            case 'update':
-                await this._Collection
-                    .documents(record.documentKey._id.toString())
-                    .update(record.updateDescription.updatedFields);
-                break;
-            case 'insert':
-                await this._Collection
-                    .documents()
-                    .upsert({
+        try {
+            switch (record.operationType) {
+                case 'delete':
+                    await this._Collection.documents(record.documentKey._id.toString()).delete();
+                    break;
+                case 'update':
+                    await this._Collection
+                        .documents(record.documentKey._id.toString())
+                        .update(record.updateDescription.updatedFields);
+                    break;
+                case 'insert':
+                    await this._Collection.documents().upsert({
                         id: record.documentKey._id,
                         ...record.fullDocument,
-                    })
-                    .catch((e) => Logger.error(`${record.documentKey._id}: ${e}`));
+                    });
+            }
+        } catch (error) {
+            Logger.error(`${get(record, 'documentKey._id')}: ${error?.message}`);
+        } finally {
         }
     }
 
